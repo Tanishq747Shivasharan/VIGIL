@@ -1,11 +1,11 @@
 ================================================================================
-                            CYBERKAVACH WEB
+                            VIGIL
           CryptoLab & Security Dashboard — A Browser-Based Toolkit
 ================================================================================
 
 PROJECT INFORMATION
 -------------------
-Name:           CyberKavach Web
+Name:           VIGLE
 Type:           Micro Project Submission
 Course:         Diploma in Computer Engineering (Semester VI)
 Board:          Maharashtra State Board of Technical Education (MSBTE)
@@ -19,11 +19,11 @@ Difficulty:     Medium
 DESCRIPTION
 -----------
 
-CyberKavach Web is a comprehensive offline cybersecurity toolkit designed for
+VIGIL is a comprehensive offline cybersecurity toolkit designed for
 educational purposes and practical security analysis. It runs entirely in the
 browser without requiring any server, npm packages, or installation procedures.
 
-This application serves as the web companion to the CyberKavach Android app
+This application serves as the web companion to the VIGIL Android app
 (MAD project), together forming a complete dual-platform personal cybersecurity
 ecosystem. Simply open index.html in any modern browser to begin.
 
@@ -90,7 +90,7 @@ FEATURES
    - TOTP/MFA simulator with live 30-second countdown timer
 
 5. SECURITY DASHBOARD (dashboard.html)
-   - Import JSON data exported from CyberKavach Android app
+   - Import JSON data exported from VIGIL Android app
    - Summary statistics cards
      * Total Wi-Fi scans performed
      * Total devices discovered
@@ -117,7 +117,7 @@ FEATURES
 NIS CURRICULUM COVERAGE
 ------------------------
 
-Practical No.   NIS Practical Title              CyberKavach Feature
+Practical No.   NIS Practical Title              VIGIL Feature
 -------------   -------------------------------- ---------------------------
 P2              Multi-Factor Authentication      TOTP/MFA Simulator
 P4              Strong Password Utility          Password Audit + Generator
@@ -149,7 +149,7 @@ Dependencies:       Zero local dependencies
 DIRECTORY STRUCTURE
 -------------------
 
-cyberkavach-web/
+VIGIL-web/
 |
 |-- index.html
 |-- cryptolab.html
@@ -196,7 +196,7 @@ NOTE: The Security Dashboard page requires internet connection only for
 ANDROID APP INTEGRATION
 ------------------------
 
-CyberKavach Web integrates seamlessly with the CyberKavach Android application
+VIGIL Web integrates seamlessly with the VIGIL Android application
 (MAD Project — Course Code: 316006).
 
 WORKFLOW:
