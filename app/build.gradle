@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.vigil'
+    namespace 'com.vigil.security'
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.vigil"
+        applicationId "com.vigil.security"
         minSdk 24
         targetSdk 36
         versionCode 1
@@ -29,6 +29,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
+    }
+    viewBinding {
+        enabled = true
     }
 }
 

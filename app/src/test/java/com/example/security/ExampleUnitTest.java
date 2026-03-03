@@ -1,4 +1,4 @@
-package com.example.vigil;
+package com.example.security;
 
 import org.junit.Test;
 
