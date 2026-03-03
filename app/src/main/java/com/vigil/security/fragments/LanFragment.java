@@ -1,0 +1,5 @@
+package com.vigil.security.fragments;
+
+import androidx.fragment.app.Fragment;
+
+public class LanFragment extends Fragment {}

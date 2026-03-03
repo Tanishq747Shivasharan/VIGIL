@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_wifi"
+        android:title="WiFi"
+        android:icon="@android:drawable/ic_menu_search"/>
+
+    <item
+        android:id="@+id/nav_lan"
+        android:title="LAN"
+        android:icon="@android:drawable/ic_menu_info_details"/>
+
+    <item
+        android:id="@+id/nav_password"
+        android:title="Password"
+        android:icon="@android:drawable/ic_lock_lock"/>
+
+    <item
+        android:id="@+id/nav_sms"
+        android:title="SMS"
+        android:icon="@android:drawable/ic_dialog_email"/>
+
+    <item
+        android:id="@+id/nav_history"
+        android:title="History"
+        android:icon="@android:drawable/ic_menu_recent_history"/>
+
+</menu>
