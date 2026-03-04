@@ -2,8 +2,28 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.VIGIL" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="colorPrimary">@color/card_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/accent_gold</item>
+        <item name="colorOnSecondary">@color/card_dark</item>
+        <item name="android:statusBarColor">@color/bg_primary</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Bottom Navigation Style -->
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
     <style name="Theme.VIGIL" parent="Base.Theme.VIGIL" />
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">@color/bg_primary</item>
+        <item name="itemIconTint">@color/color_nav_item</item>
+        <item name="itemTextColor">@color/color_nav_item</item>
+        <item name="itemActiveIndicatorStyle">@style/App.ActiveIndicator</item>
+    </style>
+
+    <style name="App.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/nav_active_indicator</item>
+    </style>
 </resources>

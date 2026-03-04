@@ -2,4 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- VIGIL Theme Colors -->
+    <color name="bg_primary">#F8F4E1</color>
+    <color name="card_dark">#543310</color>
+    <color name="accent_gold">#AF8F6F</color>
+    <color name="text_dark">#543310</color>
+    <color name="text_brown">#74512D</color>
+    <color name="text_light">#F8F4E1</color>
+
+    <!-- Status Colors -->
+    <color name="safe_green">#27AE60</color>
+    <color name="warning_orange">#F39C12</color>
+    <color name="danger_red">#C0392B</color>
+
+    <!-- Navigation Colors -->
+    <color name="nav_active_indicator">#543310</color>
+    <color name="nav_item_selected">#F8F4E1</color>
+    <color name="nav_item_unselected">#74512D</color>
 </resources>
