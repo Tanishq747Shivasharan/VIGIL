@@ -11,14 +11,13 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.List;
 public class WifiSecurityAnalyzer {
-
-    private static final String TODO ="";
     private WifiManager wifiManager;
 
         public WifiSecurityAnalyzer(Context context) {
 
             wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         }
+        // This will return the name of the Wi-Fi.
         public String getCurrentSSID() {
 
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
@@ -34,7 +33,7 @@ public class WifiSecurityAnalyzer {
         if (wifiManager == null)
             return "UNKNOWN";
 
-        wifiManager.startScan();
+        wifiManager.startScan(); // --> This will start the scan using wifiManager.
 
         List<ScanResult> scanResults;
 
@@ -56,15 +55,15 @@ public class WifiSecurityAnalyzer {
                 String capabilities = result.capabilities;
 
                 if (capabilities.contains("WEP"))
-                    return "WEP";
+                    return "WEP";   // Denotes very weak Wi-Fi
                 else if (capabilities.contains("WPA3"))
-                    return "WPA3";
+                    return "WPA3";  // Denotes Best Wi-Fi
                 else if (capabilities.contains("WPA2"))
-                    return "WPA2";
+                    return "WPA2";  // Denotes Good Wi-Fi.
                 else if (capabilities.contains("WPA"))
-                    return "WPA";
+                    return "WPA";  // Denotes Old Wi-Fi.
                 else
-                    return "OPEN";
+                    return "OPEN"; // Wi-Fi is open(No password)
             }
         }
 
@@ -87,4 +86,3 @@ public class WifiSecurityAnalyzer {
             }
         }
 }
-
