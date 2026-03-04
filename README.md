@@ -3,13 +3,6 @@
 
 ---
 
-**Type:** Micro Project Submission  
-**Course:** Diploma in Computer Engineering — Semester VI  
-**Board:** Maharashtra State Board of Technical Education (MSBTE) — K-Scheme  
-**Subjects:** Network and Information Security (NIS) `316317` · Mobile Application Development (MAD) `316006`
-
----
-
 ## Overview
 
 VIGIL is a comprehensive offline cybersecurity toolkit designed for educational purposes and practical security analysis. It runs entirely in the browser with no server, no npm packages, and no installation required.
