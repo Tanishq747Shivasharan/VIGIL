@@ -157,10 +157,6 @@ VIGIL Web integrates with the VIGIL Android application (MAD Project — `316006
 | Aryan Jakkal | 3558        |
 | Dhairyashil Sarwade | 3583        |
 
-**Course:** Diploma in Computer Engineering — Semester VI  
-**Board:** MSBTE — K-Scheme  
-**Subjects:** NIS `316317` · MAD `316006`
-
 ---
 
 ## License
