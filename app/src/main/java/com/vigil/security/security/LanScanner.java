@@ -1,8 +1,10 @@
 package com.vigil.security.security;
 
 import android.content.Context;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
+import android.net.ConnectivityManager;
+import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.Network;
 import android.util.Log;
 
 import com.vigil.security.models.LanDevice;
@@ -10,6 +12,7 @@ import com.vigil.security.models.LanDevice;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -127,21 +130,34 @@ public class LanScanner {
     public void cancelScan() {
         isCancelled = true;
     }
+
+    /**
+     * getLocalIpAddress()
+     *
+     * Modern way to get the device's IP address using ConnectivityManager.
+     * This avoids deprecated WifiManager APIs and handles IPv4 correctly.
+     */
     private String getLocalIpAddress() {
         try {
-            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-            if (wifiManager == null) return null;
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm == null) return null;
 
-            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-            int ipInt = wifiInfo.getIpAddress();
+            Network activeNetwork = cm.getActiveNetwork();
+            if (activeNetwork == null) return null;
 
-            // Formatter.formatIpAddress converts the int to "192.168.1.101"
-            // It handles the little-endian byte reversal automatically
-            return android.text.format.Formatter.formatIpAddress(ipInt);
+            LinkProperties lp = cm.getLinkProperties(activeNetwork);
+            if (lp == null) return null;
+
+            for (LinkAddress linkAddress : lp.getLinkAddresses()) {
+                InetAddress address = linkAddress.getAddress();
+                if (address instanceof Inet4Address && !address.isLoopbackAddress()) {
+                    return address.getHostAddress();
+                }
+            }
         } catch (Exception e) {
             Log.e(TAG, "Failed to get local IP: " + e.getMessage());
-            return null;
         }
+        return null;
     }
 
     private String getSubnet(String ipAddress) {
@@ -162,38 +178,18 @@ public class LanScanner {
      * getMacFromArp()
      *
      * Reads the ARP cache from the Linux kernel's /proc/net/arp file.
-     *
-     * What is ARP?
-     *   When your phone sends data to 192.168.1.5, it first broadcasts:
-     *   "Hey everyone! Who has IP 192.168.1.5? Reply with your MAC address."
-     *   The device replies, and the kernel stores: IP → MAC in the ARP table.
-     *   This file persists as long as the device is reachable.
-     *
-     * The file looks like this:
-     *   IP address       HW type  Flags  HW address          Mask  Device
-     *   192.168.1.1      0x1      0x2    a4:c3:f0:12:34:56   *     wlan0
-     *   192.168.1.5      0x1      0x2    b8:27:eb:aa:bb:cc   *     wlan0
-     *
-     * We read each line, split by spaces, and match the IP in column 0.
-     * If found, column 3 is the MAC address.
      */
     private String getMacFromArp(String ip) {
         try {
-            // BufferedReader reads text files line by line efficiently
             BufferedReader reader = new BufferedReader(new FileReader("/proc/net/arp"));
             String line;
 
-            // reader.readLine() returns null at end of file
             while ((line = reader.readLine()) != null) {
-                // Split by one or more whitespace characters (\s+)
-                // "192.168.1.1  0x1  0x2  aa:bb:cc..." → ["192.168.1.1","0x1","0x2","aa:bb:cc..."]
                 String[] parts = line.trim().split("\\s+");
 
-                // We need at least 4 columns (index 0=IP, 3=MAC)
                 if (parts.length >= 4 && parts[0].equals(ip)) {
                     String mac = parts[3];
                     reader.close();
-                    // Validate MAC format: should look like "aa:bb:cc:dd:ee:ff"
                     if (mac.matches("([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}")) {
                         return mac.toUpperCase();
                     }
@@ -210,7 +206,6 @@ public class LanScanner {
         try {
             InetAddress address = InetAddress.getByName(ip);
             String hostname = address.getCanonicalHostName();
-            // If resolution failed, it just returns the IP — not useful
             return hostname.equals(ip) ? "" : hostname;
         } catch (Exception e) {
             return "";
@@ -222,10 +217,8 @@ public class LanScanner {
             return "Unknown";
         }
 
-        // Extract first 3 octets and normalize to uppercase
         String oui = mac.substring(0, 8).toUpperCase();
 
-        // OUI lookup table — common device manufacturers
         switch (oui) {
             // Apple
             case "A4:C3:F0": case "F0:18:98": case "BC:92:6B":
