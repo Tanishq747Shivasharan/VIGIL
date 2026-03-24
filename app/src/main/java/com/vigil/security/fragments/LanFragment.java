@@ -13,10 +13,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vigil.security.database.ScanHistoryDao;
+import com.vigil.security.database.VigilDatabase;
+import com.vigil.security.models.ScanRecord;
 import com.vigil.security.R;
 import com.vigil.security.adapters.LanDeviceAdapter;
 import com.vigil.security.models.LanDevice;
 import com.vigil.security.security.LanScanner;
+
 
 import java.util.List;
 
@@ -162,6 +166,17 @@ public class LanFragment extends Fragment {
 
                     int count = allDevices.size();
                     tvDeviceCount.setText(count + (count == 1 ? " device found" : " devices found"));
+
+                    // ← ADD THESE LINES
+                    ScanRecord record = new ScanRecord(
+                            ScanRecord.TYPE_LAN,
+                            count + " devices found on network",
+                            count > 8 ? ScanRecord.RISK_HIGH : ScanRecord.RISK_SAFE,
+                            count > 8 ? 75 : 10,
+                            null
+                    );
+                    ScanHistoryDao dao = new ScanHistoryDao(VigilDatabase.getInstance(requireContext()));
+                    new Thread(() -> dao.insert(record)).start();
                 });
             }
 

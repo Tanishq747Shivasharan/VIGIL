@@ -8,12 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.vigil.security.database.ScanHistoryDao;
+import com.vigil.security.database.VigilDatabase;
+import com.vigil.security.models.ScanRecord;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.vigil.security.R;
 import com.vigil.security.security.WifiSecurityAnalyzer;
+
 
 public class WifiFragment extends Fragment {
 
@@ -78,6 +82,7 @@ public class WifiFragment extends Fragment {
 
         // 4. Update UI context (colors, badges, warnings)
         updateRiskUI(riskLevel, security);
+        saveWifiScanToHistory(ssid, security, riskLevel, riskScore, signal, frequency);
     }
 
     private void updateRiskUI(String riskLevel, String security) {
@@ -112,5 +117,18 @@ public class WifiFragment extends Fragment {
             tvOpenBadge.setVisibility(View.GONE);
             tvSecurity.setTextColor(Color.parseColor("#543310"));
         }
+    }
+    private void saveWifiScanToHistory(String ssid, String securityType,
+                                       String riskLevel, int riskScore,
+                                       String signal, String frequency) {
+        ScanRecord record = new ScanRecord(
+                ScanRecord.TYPE_WIFI,
+                "SSID: " + ssid + "  ·  " + securityType + "  ·  Signal: " + signal,
+                riskLevel,
+                riskScore,
+                "Frequency: " + frequency
+        );
+        ScanHistoryDao dao = new ScanHistoryDao(VigilDatabase.getInstance(requireContext()));
+        new Thread(() -> dao.insert(record)).start();
     }
 }
