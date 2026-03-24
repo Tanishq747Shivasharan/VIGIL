@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    item_sms.xml — Single SMS Card (Expandable)
-
-    COLLAPSED view (always visible):
-      [ Risk badge ]  Sender name
-                      Message preview (120 chars)
-                      Date & time          [ ▼ ]
-
-    EXPANDED view (tap card to toggle):
-      ─────────────────────────────────
-      Full message body
-      Matched keywords: lottery, click link
-      Explanation: Likely phishing — lottery scams...
-      Risk Score: 85 / 100
--->
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,17 +16,13 @@
         android:orientation="vertical"
         android:padding="14dp">
 
-        <!-- ================================================================
-             COLLAPSED ROW — always visible
-        ================================================================ -->
+        <!-- COLLAPSED ROW -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <!-- Left: Risk badge pill -->
-            <!-- ID: tv_sms_risk_badge — Java sets text + color -->
             <TextView
                 android:id="@+id/tv_sms_risk_badge"
                 android:layout_width="wrap_content"
@@ -56,49 +37,43 @@
                 android:background="@drawable/bg_badge_risk"
                 android:layout_marginEnd="10dp"/>
 
-            <!-- Centre: Sender + Preview stacked vertically -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <!-- ID: tv_sms_sender -->
                 <TextView
                     android:id="@+id/tv_sms_sender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VM-HDFCBK"
+                    android:text="Sender"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
 
-                <!-- ID: tv_sms_body_preview -->
                 <TextView
                     android:id="@+id/tv_sms_body_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Message preview here..."
+                    android:text="Message preview..."
                     android:textColor="#888888"
                     android:textSize="12sp"
                     android:layout_marginTop="2dp"
                     android:maxLines="2"
                     android:ellipsize="end"/>
 
-                <!-- ID: tv_sms_timestamp -->
                 <TextView
                     android:id="@+id/tv_sms_timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24 Mar 2026, 10:45 AM"
+                    android:text="Date/Time"
                     android:textColor="#BBBBBB"
                     android:textSize="11sp"
                     android:layout_marginTop="4dp"/>
 
             </LinearLayout>
 
-            <!-- Right: Expand arrow ▼ / ▲ -->
-            <!-- ID: tv_expand_arrow — Java toggles ▼ and ▲ -->
             <TextView
                 android:id="@+id/tv_expand_arrow"
                 android:layout_width="wrap_content"
@@ -110,10 +85,7 @@
 
         </LinearLayout>
 
-        <!-- ================================================================
-             EXPANDED SECTION — hidden by default, shown on tap
-             ID: layout_sms_expanded — Java toggles VISIBLE/GONE
-        ================================================================ -->
+        <!-- EXPANDED SECTION -->
         <LinearLayout
             android:id="@+id/layout_sms_expanded"
             android:layout_width="match_parent"
@@ -121,7 +93,6 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -129,7 +100,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <!-- Full body label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,30 +110,28 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="4dp"/>
 
-            <!-- ID: tv_sms_full_body — Java sets full message text -->
+            <!-- Added background color directly and removed rounded track to prevent text clipping -->
             <TextView
                 android:id="@+id/tv_sms_full_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Full message body here..."
+                android:text="Full message body..."
                 android:textColor="@color/text_dark"
                 android:textSize="13sp"
-                android:lineSpacingMultiplier="1.5"
-                android:background="@drawable/bg_progress_track"
-                android:padding="10dp"
+                android:lineSpacingMultiplier="1.2"
+                android:background="#F5F5F5"
+                android:padding="12dp"
                 android:layout_marginBottom="10dp"/>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#EEEEEE"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- ID: tv_sms_keywords — Java sets "Matched: lottery, otp" -->
             <TextView
                 android:id="@+id/tv_sms_keywords"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Matched: none"
                 android:textColor="#8B6914"
@@ -171,18 +139,16 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="6dp"/>
 
-            <!-- ID: tv_sms_explanation — Java sets the explanation text -->
             <TextView
                 android:id="@+id/tv_sms_explanation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No phishing indicators found."
+                android:text="Explanation here..."
                 android:textColor="#666666"
                 android:textSize="12sp"
-                android:lineSpacingMultiplier="1.5"
+                android:lineSpacingMultiplier="1.2"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- ID: tv_sms_risk_score — Java sets "Risk Score: 85 / 100" in red/green -->
             <TextView
                 android:id="@+id/tv_sms_risk_score"
                 android:layout_width="wrap_content"
