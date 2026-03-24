@@ -1,5 +1,5 @@
 # VIGIL
-### CryptoLab & Security Dashboard — A Browser-Based Cybersecurity Toolkit
+### A Minimalistic Network and Cyber-Security based Mobile Application
 
 ---
 
